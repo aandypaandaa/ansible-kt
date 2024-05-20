@@ -1,0 +1,23 @@
+- name: setup infrastructure
+  hosts: all
+  become: true
+  tasks:
+    - name: update and upgrade apt packages
+      apt:
+        update_cache: yes
+        upgrade: dist
+
+    - name: install necessary packages
+      apt:
+        name:
+          - docker.io
+          - docker-compose
+          - git
+          - gitlab-runner
+          - traceroute
+        state: present
+
+    - name: clean up APT cache
+      apt:
+        autoclean: yes
+
